@@ -14,16 +14,24 @@
         <section id="texto-entrada">
             <div class="ingresar-texto">
                 <textarea name="texto" id="texto" placeholder="Ingrese el texto aqui"></textarea>
-                <span class="mensaje"></span>
+                <span class="mensaje"><img src="./img/mensaje.svg" alt="icono mensaje"> Solo letras minúsculas y sin acentos</span>
             </div>
             <div class="botones">
-                <button class="boton btn-1">Encriptar</button>
-                <button class="boton btn-2">Desencriptar</button>
+                <button class="boton btn-1 encriptar">Encriptar</button>
+                <button class="boton btn-2 desencriptar">Desencriptar</button>
             </div>
         </section>
 
         <section id="texto-salida">
-            SSD
+            <div id="sin-texto" class="activo">
+                <img src="./img/Muñeco.svg" alt="imagen persona con lupa">
+                <h2>Ningún mensaje fue encontrado</h2>
+                <p>Ingresa el texto que desees encriptar o desencriptar.</p>
+            </div>
+            <div id="con-texto" class="">
+                <p class="texto-encriptado"></p>
+                <button class="boton btn-2 copiar">Copiar</button>
+            </div>
         </section>
     </main>
     <script src="./main.js"></script>
