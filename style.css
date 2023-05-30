@@ -126,6 +126,7 @@ header {
     justify-content: space-between;
 
     width: 100%;
+    padding: 20px;
 }
 #texto-salida #sin-texto {
     align-items: center;
@@ -177,15 +178,32 @@ header {
 
 /* tablet */
 @media (max-width: 768px) {
+    body {
+        height:auto
+    }
     main {
         flex-direction: column;
         padding: 0%;
+        margin-bottom: 50px;
+    }
+    header img {
+        width: 25px;
+    }
+    .ingresar-texto {
+        margin-top: 30px;
     }
     #texto-salida {
         width: 100%;
     }
     #texto-salida #sin-texto img {
         display: none;
+    }
+    .error {
+        top: 42px;
+    }
+
+    .mensaje.movil {
+        visibility: hidden;
     }
 }
 

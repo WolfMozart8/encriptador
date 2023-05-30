@@ -4,10 +4,16 @@
 // La letra "o" es convertida para "ober"
 // La letra "u" es convertida para "ufat"
 
+const mediaQuery = window.matchMedia("(max-width: 768px)"); // comprueba si esta en movil
+
 const input = document.getElementById("texto");
 const texto = document.querySelector(".texto-encriptado");
-const mensaje = document.querySelector(".mensaje"); // mensaje advertencia
 const mensajeError = document.querySelector(".error");
+const mensaje = document.querySelector(".mensaje"); // mensaje advertencia
+
+// comprueba la pantalla al inicio para mostrar u ocultar mensaje
+mediaQuery.matches ? mensaje.classList.add("movil") : mensaje.classList.remove("movil")
+
 
 // botones
 const btnEncriptar = document.querySelector(".encriptar");
@@ -18,14 +24,25 @@ btnEncriptar.addEventListener("click", encriptar);
 btnDesncriptar.addEventListener("click", desencriptar);
 btnCopiar.addEventListener("click", copiarTexto);
 
+// verifica si el mediaQuery esta activado, y asi ocultar el mensaje de advertencia
+mediaQuery.addEventListener("change", (e) => {
+  e.matches ? mensaje.classList.add("movil") : mensaje.classList.remove("movil")
+})
+
 const conTextoDiv = document.getElementById("con-texto")
 const sinTextoDiv = document.getElementById("sin-texto")
 
 function encriptar() {
-  const valor = input.value;
+  let valor = input.value;
 
-  if (!esValido(valor)) { // Si el texto no es valido no se completa la funcion
-    return
+  if (mediaQuery.matches) { // verifica si está en movil o tablet (pantalla pequeña)
+
+    valor = trasformarTexto(valor) // nuevo valor sin mayusculas ni acentos
+  }
+  else {  // en escritorio (pantalla mas grande)
+    if (!esValido(valor)) { // Si el texto no es valido no se completa la funcion
+      return
+    }
   }
 
   let nuevoTexto = "";
@@ -110,6 +127,17 @@ function esValido (texto) {
 
     return false
   }
+}
+function trasformarTexto (texto) {
+  const minusculas = texto.toLowerCase()
+  const sinAcentos = minusculas
+                                .replaceAll("á", "a")
+                                .replaceAll("é", "e")
+                                .replaceAll("í", "i")
+                                .replaceAll("ó", "o")
+                                .replaceAll("ú", "u")
+  
+  return sinAcentos
 }
 
 function copiarTexto() {
