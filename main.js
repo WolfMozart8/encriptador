@@ -6,7 +6,10 @@
 
 const input = document.getElementById("texto");
 const texto = document.querySelector(".texto-encriptado");
+const mensaje = document.querySelector(".mensaje"); // mensaje advertencia
+const mensajeError = document.querySelector(".error");
 
+// botones
 const btnEncriptar = document.querySelector(".encriptar");
 const btnDesncriptar = document.querySelector(".desencriptar");
 const btnCopiar = document.querySelector(".copiar");
@@ -15,11 +18,16 @@ btnEncriptar.addEventListener("click", encriptar);
 btnDesncriptar.addEventListener("click", desencriptar);
 btnCopiar.addEventListener("click", copiarTexto);
 
-conTextoDiv = document.getElementById("con-texto")
-sinTextoDiv = document.getElementById("sin-texto")
+const conTextoDiv = document.getElementById("con-texto")
+const sinTextoDiv = document.getElementById("sin-texto")
 
 function encriptar() {
   const valor = input.value;
+
+  if (!esValido(valor)) { // Si el texto no es valido no se completa la funcion
+    return
+  }
+
   let nuevoTexto = "";
 
   for (let i = 0; i < valor.length; i++) {
@@ -49,7 +57,7 @@ function encriptar() {
   texto.textContent = nuevoTexto;
   input.value = "";
 
-  if (valor == "") {
+  if (valor == "") { // intercambia el cuadro de la salida de texto
     conTextoDiv.classList.remove("activo")
     sinTextoDiv.classList.add("activo")
   } else {
@@ -59,6 +67,11 @@ function encriptar() {
 }
 function desencriptar() {
   const valor = input.value;
+
+  if (!esValido(valor)) { // Si el texto no es valido no se completa la funcion
+    return
+  }
+
   let nuevoTexto = valor
     .replaceAll("ai", "a")
     .replaceAll("enter", "e")
@@ -68,7 +81,7 @@ function desencriptar() {
 
     texto.textContent = nuevoTexto;
 
-    if (valor == "") {
+    if (valor == "") { // intercambia el cuadro de la salida de texto
       conTextoDiv.classList.remove("activo")
       sinTextoDiv.classList.add("activo")
     } else {
@@ -76,12 +89,27 @@ function desencriptar() {
       sinTextoDiv.classList.remove("activo")
     }
     
-
-
-
   input.value = "";
+}
 
+function esValido (texto) {
+  const caracteresValidos = /^[a-z\s]+$/;
 
+  if (caracteresValidos.test(texto) || texto == "") {
+    input.classList.remove("invalido")
+    mensaje.classList.remove("invalido")
+    mensajeError.classList.remove("invalido")
+
+    return true
+  }
+
+  else {
+    input.classList.add("invalido")
+    mensaje.classList.add("invalido")
+    mensajeError.classList.add("invalido")
+
+    return false
+  }
 }
 
 function copiarTexto() {
